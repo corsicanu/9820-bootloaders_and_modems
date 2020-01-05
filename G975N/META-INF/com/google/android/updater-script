@@ -1,0 +1,33 @@
+unmount("/system_root");
+assert(is_substring("G975N", getprop("ro.boot.bootloader")) || abort("Error: This package is only for G975N device, aborting..."););
+ui_print(" ");
+ui_print(" ");
+ui_print("G975N Modem and bootloader flasher");
+ui_print(" by corsicanu@xda-developers.com");
+ui_print(" ");
+ui_print(" - checking device info...");
+
+ui_print(" - updating bootloader files..");
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota0", 0, 0, "000"));
+assert(write_data_bt("sboot.bin", "/dev/block/platform/13d60000.ufs/by-name/bota0", 8, 4194304));
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota0", 0, 0, 3142939818));
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota1", 0, 0, "000"));
+assert(write_data_bt("cm.bin", "/dev/block/platform/13d60000.ufs/by-name/bota1", 8, 7340032));
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota1", 0, 0, 3142939818));
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota2", 0, 0, "000"));
+assert(write_data_bt("up_param.bin", "/dev/block/platform/13d60000.ufs/by-name/bota2", 8, 1884160));
+assert(mark_header_bt("/dev/block/platform/13d60000.ufs/by-name/bota2", 0, 0, 3142939818));
+assert(package_extract_file("keystorage.bin", "/dev/block/platform/13d60000.ufs/by-name/keystorage"));
+assert(package_extract_file("uh.bin", "/dev/block/platform/13d60000.ufs/by-name/uh"));
+
+ui_print(" - updating modem..");
+assert(package_extract_file("modem.bin", "/dev/block/platform/13d60000.ufs/by-name/radio"));
+ui_print(" - updating device tree images..");
+package_extract_file("dt.img", "/dev/block/platform/13d60000.ufs/by-name/dtb");
+package_extract_file("dtbo.img", "/dev/block/platform/13d60000.ufs/by-name/dtbo");
+
+ui_print(" ");
+ui_print("Done, reboot and enjoy!");
+ui_print(" ");
+ui_print(" ");
+set_progress(1.000000);
