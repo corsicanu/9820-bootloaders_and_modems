@@ -30,9 +30,9 @@ All the files here are pulled from official firmwares of the devices mentioned.
 G970FXXU3ASK1
 G973FXXU3ASK1
 G975FXXU3ASK1
-G970NKSU3ASJG
-G973NKSU3ASJG
-G975NKSU3ASJG
+G970NKSU3BSKO
+G973NKSU3BSKO
+G975NKSU3BSKO
 ```
 
 ## Instructions:
