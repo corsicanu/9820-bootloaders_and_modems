@@ -27,9 +27,9 @@ All the files here are pulled from official firmwares of the devices mentioned.
 
 ## Latest releases:
 ```
-G970FXXU3ASK1
-G973FXXU3ASK1
-G975FXXU3ASK1
+G970FXXS3BSL4
+G973FXXS3BSL4
+G975FXXS3BSL4
 G970NKSU3BSKO
 G973NKSU3BSKO
 G975NKSU3BSKO
