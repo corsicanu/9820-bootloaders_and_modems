@@ -37,16 +37,17 @@ G975NKSU3BSKO
 
 ## Instructions:
 **1. Update via TWRP:**
-   - Download **\*\_twrp\_flashable\.zip**
+   - Download **\*\_twrp\_flashable\.zip** from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
    - Boot phone in TWRP
    - Flash the downloaded zip as any other
+   - Optional - download and flash [TWRP_Bootlogo_patcher.zip](TWRP_Bootlogo_patcher.zip) to get rid of the boot warning
 
 **2. Update via Odin:**
    - Download Odin v3.13.1
    - Download and install Samsung Drivers (if you have them installed you can skip this step)
-   - Download **\*\_odin\_flashable\.tar**
+   - Download **\*\_odin\_flashable\.tar** from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
    - Switch off the phone
-   - Use Volume Down+Power+Usb cable to enter Download Mode
+   - Use Volume Down+Bixby+Usb cable to enter Download Mode
    - Open Odin and make sure that your device is detected
    - Put **\*\_odin\_flashable\.tar** file into BL tab
    - Click Start and wait for the device to reboot
