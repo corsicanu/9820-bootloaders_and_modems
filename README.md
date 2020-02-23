@@ -43,7 +43,7 @@ G975NKSU3BSKO
    - Optional - download and flash [TWRP_Bootlogo_patcher.zip](TWRP_Bootlogo_patcher.zip) to get rid of the boot warning
 
 **2. Update via Odin:**
-   - Download Odin v3.13.1
+   - Download Odin v3.14.1
    - Download and install Samsung Drivers (if you have them installed you can skip this step)
    - Download **\*\_odin\_flashable\.tar** from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
    - Switch off the phone
