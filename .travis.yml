@@ -17,6 +17,9 @@ script:
   - export latest=$(cat README.md | grep G975F)
   - cd G975F && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
   - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - export latest=$(cat README.md | grep G977B)
+  - cd G977B && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
   - export latest=$(cat README.md | grep G970N)
   - cd G970N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
   - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
@@ -25,6 +28,9 @@ script:
   - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
   - export latest=$(cat README.md | grep G975N)
   - cd G975N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - export latest=$(cat README.md | grep G977N)
+  - cd G977N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
   - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
   - cd $home_dir
 after_success:
