@@ -1,8 +1,8 @@
 unmount("/system_root");
-assert(is_substring("G977B", getprop("ro.boot.bootloader")) || abort("Error: This package is only for G975F device, aborting..."););
+assert(is_substring("G977B", getprop("ro.boot.bootloader")) || abort("Error: This package is only for G977B device, aborting..."););
 ui_print(" ");
 ui_print(" ");
-ui_print("G975F Modem and bootloader flasher");
+ui_print("G977B Modem and bootloader flasher");
 ui_print(" by corsicanu@xda-developers.com");
 ui_print(" ");
 ui_print(" - checking device info...");
@@ -28,6 +28,8 @@ run_program("/sbin/sleep","1");
 
 ui_print(" - updating modem..");
 assert(package_extract_file("modem.bin", "/dev/block/platform/13d60000.ufs/by-name/radio"));
+run_program("/sbin/sleep","1");
+assert(package_extract_file("modem_5g.bin", "/dev/block/platform/13d60000.ufs/by-name/radio2"));
 run_program("/sbin/sleep","1");
 ui_print(" - updating device tree images..");
 package_extract_file("dt.img", "/dev/block/platform/13d60000.ufs/by-name/dtb");
