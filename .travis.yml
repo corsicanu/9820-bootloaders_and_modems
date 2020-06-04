@@ -4,35 +4,35 @@ before_install:
   - sudo apt-get update
   - rm -rf corsicanu/9820-bootloaders_and_modems
 script: 
-  - cp TWRP_Bootlogo_patcher.zip $HOME/TWRP_Bootlogo_patcher.zip
-  - cp Odin3_v3.14.1.zip $HOME/Odin3_v3.14.1.zip
-  - cp SAMSUNG_USB_Driver_for_Mobile_Phones.zip $HOME/SAMSUNG_USB_Driver_for_Mobile_Phones.zip
+  - cp TWRP_Bootlogo_patcher.zip "$HOME"/TWRP_Bootlogo_patcher.zip
+  - cp Odin3_v3.14.1.zip "$HOME"/Odin3_v3.14.1.zip
+  - cp SAMSUNG_USB_Driver_for_Mobile_Phones.zip "$HOME"/SAMSUNG_USB_Driver_for_Mobile_Phones.zip
   - export home_dir=$(pwd)
   - export latest=$(cat README.md | grep G970F)
-  - cd G970F && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G970F && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G973F)
-  - cd G973F && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G973F && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G975F)
-  - cd G975F && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G975F && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G977B)
-  - cd G977B && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G977B && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G970N)
-  - cd G970N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G970N && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G973N)
-  - cd G973N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G973N && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G975N)
-  - cd G975N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
+  - cd G975N && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
   - export latest=$(cat README.md | grep G977N)
-  - cd G977N && zip -r -9 - * > $HOME/$latest-twrp_flashable.zip
-  - rm -rf META-INF && tar -cvf $HOME/$latest-odin_flashable.tar * && cd $home_dir
-  - cd $home_dir
+  - cd G977N && zip -r -9 - * > "$HOME"/"$latest"-twrp_flashable.zip
+  - rm -rf META-INF && tar -cvf "$HOME"/"$latest"-odin_flashable.tar * && cd "$home_dir"
+  - cd "$home_dir"
 after_success:
   - log=$(git log $TRAVIS_COMMIT_RANGE --oneline)
   - export TAG=$'v'$(date +'%Y%m%d%H%M%S')
