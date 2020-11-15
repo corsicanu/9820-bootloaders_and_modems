@@ -41,3 +41,4 @@ All the files here are pulled from official firmwares of the devices mentioned.
    - Open Odin and make sure that your device is detected
    - Put **\*\-odin\_flashable\.tar** file into BL tab
    - Click Start and wait for the device to reboot
+
