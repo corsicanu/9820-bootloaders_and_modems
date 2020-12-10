@@ -22,13 +22,13 @@ jobs:
           - model: "SM-G970N"
             region: "KOO"
           - model: "SM-G977B"
-            region: "AUT"
+            region: "BTU"
           - model: "SM-G975F"
-            region: "DBT"
+            region: "BTU"
           - model: "SM-G973F"
-            region: "DBT"
+            region: "BTU"
           - model: "SM-G970F"
-            region: "DBT"
+            region: "BTU"
 
     steps:
       - name: Checkout repo
