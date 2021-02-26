@@ -2,7 +2,7 @@ name: Check firmware update
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */3 * * *"
   push:
 
 jobs:
@@ -15,20 +15,28 @@ jobs:
         include:
           - model: "SM-G977N"
             region: "KOO"
+            codename: "beyondxks"
           - model: "SM-G975N"
             region: "KOO"
+            codename: "beyond2lteks"
           - model: "SM-G973N"
             region: "KOO"
+            codename: "beyond1lteks"
           - model: "SM-G970N"
             region: "KOO"
+            codename: "beyond0lteks"
           - model: "SM-G977B"
             region: "AUT"
+            codename: "beyondx"
           - model: "SM-G975F"
             region: "AUT"
+            codename: "beyond2lte"
           - model: "SM-G973F"
             region: "AUT"
+            codename: "beyond1lte"
           - model: "SM-G970F"
             region: "AUT"
+            codename: "beyond0lte"
 
     steps:
       - name: Checkout repo
@@ -57,6 +65,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y liblz4-tool zip
+          sudo wget -O /usr/bin/dtc http://de.corsicanu.ro/downloads/dtc && sudo chmod +x /usr/bin/dtc
+          sudo wget -O /usr/bin/mkdtimg http://de.corsicanu.ro/downloads/mkdtimg && sudo chmod +x /usr/bin/mkdtimg
+          sudo wget -O /usr/bin/splitdt http://de.corsicanu.ro/downloads/splitdt && sudo chmod +x /usr/bin/splitdt
+          sudo wget -O /usr/bin/unpackbootimg http://de.corsicanu.ro/downloads/unpackbootimg && sudo chmod +x /usr/bin/unpackbootimg
+          sudo wget -O /usr/bin/extract-ikconfig http://de.corsicanu.ro/downloads/extract-ikconfig && sudo chmod +x /usr/bin/extract-ikconfig
           sudo wget -O /usr/bin/samfirm https://github.com/jesec/SamFirm.NET/releases/latest/download/linux-x64 && sudo chmod +x /usr/bin/samfirm
 
       - name: Fetch firmware
@@ -102,13 +115,13 @@ jobs:
         run: |
           target_device=`echo ${{ matrix.model }} | cut -d'-' -f2`
           target_version=${{ steps.check.outputs.latest_shortversion }}
-          mkdir -p $target_version
+          mkdir -p $target_version configs tmp
           cp -r META-INF $target_version
           sed -i "s/target_device/$target_device/g" $target_version/META-INF/com/google/android/updater-script
           sed -i "s/target_version/$target_version/g" $target_version/META-INF/com/google/android/updater-script
           if echo $target_device | grep G97[035][FN]; then sed -i '/modem_5g/d' $target_version/META-INF/com/google/android/updater-script;fi
           
-      - name: Extract images from AP/BL and create zip
+      - name: Extract images from AP/BL, dump configs and create zips
         if: steps.check.outputs.need_update == 1
         id: releases
         run: |
@@ -118,8 +131,21 @@ jobs:
           tar xvf ${{ steps.files.outputs.bl }} 
           tar xvf ${{ steps.files.outputs.cp }}
           for i in `ls | grep lz4`; do lz4 -dm $i ; rm -rf $i; done
-          [[ -e boot.img ]] && mv boot.img $target_version-stock_boot.img
-          [[ -e recovery.img ]] && mv recovery.img $target_version-stock_recovery.img
+          extract-ikconfig boot.img > configs/exynos9820-${{ matrix.codename }}_defconfig
+          cd tmp
+          unpackbootimg -i ../boot.img >> ../configs/bootimg.args && mkdtimg dump ../dt.img >> ../configs/exynos9820.cfg
+          splitdt ../dt.img && dtc dtbdump_* -I dtb -O dts -o ../configs/exynos9820.dts && rm -rf *
+          mkdtimg dump ../dtbo.img >> ../configs/${{ matrix.codename }}.cfg && splitdt ../dtbo.img
+          for i in `ls | grep dtbdump_`; do dtc $i -I dtb -O dts -o $i.txt; done
+          for i in `ls | grep txt`;
+            do mv $i ../configs/$(cat $i | grep "model =" | sed 's/Samsung //; s/\t//g; s/\"//g; s/model = //; s/\;//' | awk '{print tolower($8"-"$1"_"$2"_"$3"_"$4".dts")}');
+          done
+          cd ../configs
+          for i in `ls | grep dts`; do sed -i 's/    /\t/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x0/0x/g; s/0x;/0x0;/g; s/0x>/0x0>/g; s/0x /0x0 /g; s/\\0/\", \"/g' $i; done;
+          zip -r ../$target_version-configs.zip *
+          cd ..
+          mv boot.img $target_version-stock_boot.img
+          mv recovery.img $target_version-stock_recovery.img
           for i in ${bls[@]}; do [[ -e $i ]] && mv $i $target_version/$i; done
           cd $target_version
           zip -r ../$target_version-twrp_flashable.zip *
@@ -130,6 +156,7 @@ jobs:
           echo ::set-output name=tar::`find -name $target_version-odin_flashable.tar`
           echo ::set-output name=boot::`find -name $target_version-stock_boot.img`
           echo ::set-output name=recovery::`find -name $target_version-stock_recovery.img`
+          echo ::set-output name=configs::`find -name $target_version-configs.zip`
 
       - name: Update current version
         if: steps.check.outputs.need_update == 1
@@ -162,4 +189,5 @@ jobs:
             ${{ steps.releases.outputs.tar }}
             ${{ steps.releases.outputs.boot }}
             ${{ steps.releases.outputs.recovery }}
+            ${{ steps.releases.outputs.configs }}
  
