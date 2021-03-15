@@ -27,7 +27,7 @@ All the files here are pulled from official firmwares of the devices mentioned.
 
 ## Instructions:
 **1. Update via TWRP:**
-   - Download **\*\-twrp\_flashable\.zip** from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
+   - Download proper  **\*\-twrp\_flashable\.zip** according to your phone model from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases) 
    - Boot phone in TWRP
    - Flash the downloaded zip as any other
    - Optional - download and flash [TWRP_Bootlogo_patcher.zip](https://downloads.corsicanu.ro/samsung/TWRP_Bootlogo_patcher.zip) to get rid of the boot warning
@@ -35,7 +35,7 @@ All the files here are pulled from official firmwares of the devices mentioned.
 **2. Update via Odin:**
    - Download [Odin v3.14.1](https://downloads.corsicanu.ro/samsung/Odin3_v3.14.1.zip)
    - Download and install [Samsung Drivers](https://downloads.corsicanu.ro/samsung/SAMSUNG_USB_Driver_for_Mobile_Phones.zip)
-   - Download **\*\-odin\_flashable\.tar** from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
+   - Download proper **\*\-odin\_flashable\.tar** according to your phone model from [releases](https://github.com/corsicanu/9820-bootloaders_and_modems/releases)
    - Switch off the phone
    - Use Volume Down+Bixby+Usb cable to enter Download Mode
    - Open Odin and make sure that your device is detected
