@@ -65,11 +65,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y liblz4-tool zip
-          sudo wget -O /usr/bin/dtc http://de.corsicanu.ro/downloads/dtc && sudo chmod +x /usr/bin/dtc
-          sudo wget -O /usr/bin/mkdtimg http://de.corsicanu.ro/downloads/mkdtimg && sudo chmod +x /usr/bin/mkdtimg
-          sudo wget -O /usr/bin/splitdt http://de.corsicanu.ro/downloads/splitdt && sudo chmod +x /usr/bin/splitdt
-          sudo wget -O /usr/bin/unpackbootimg http://de.corsicanu.ro/downloads/unpackbootimg && sudo chmod +x /usr/bin/unpackbootimg
-          sudo wget -O /usr/bin/extract-ikconfig http://de.corsicanu.ro/downloads/extract-ikconfig && sudo chmod +x /usr/bin/extract-ikconfig
+          sudo wget -O /usr/bin/dtc https://wbn.ro/dtc && sudo chmod +x /usr/bin/dtc
+          sudo wget -O /usr/bin/mkdtimg https://wbn.ro/mkdtimg && sudo chmod +x /usr/bin/mkdtimg
+          sudo wget -O /usr/bin/splitdt https://wbn.ro/splitdt && sudo chmod +x /usr/bin/splitdt
+          sudo wget -O /usr/bin/unpackbootimg https://wbn.ro/unpackbootimg && sudo chmod +x /usr/bin/unpackbootimg
+          sudo wget -O /usr/bin/extract-ikconfig https://wbn.ro/extract-ikconfig && sudo chmod +x /usr/bin/extract-ikconfig
           sudo wget -O /usr/bin/samfirm https://github.com/jesec/SamFirm.NET/releases/latest/download/linux-x64 && sudo chmod +x /usr/bin/samfirm
 
       - name: Fetch firmware
