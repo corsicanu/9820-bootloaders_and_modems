@@ -29,13 +29,13 @@ jobs:
             region: "AUT"
             codename: "beyondx"
           - model: "SM-G975F"
-            region: "DBT"
+            region: "AUT"
             codename: "beyond2lte"
           - model: "SM-G973F"
-            region: "DBT"
+            region: "AUT"
             codename: "beyond1lte"
           - model: "SM-G970F"
-            region: "DBT"
+            region: "AUT"
             codename: "beyond0lte"
 
     steps:
