@@ -116,10 +116,13 @@ jobs:
           target_device=`echo ${{ matrix.model }} | cut -d'-' -f2`
           target_version=${{ steps.check.outputs.latest_shortversion }}
           mkdir -p $target_version configs tmp
-          cp -r META-INF $target_version
-          sed -i "s/target_device/$target_device/g" $target_version/META-INF/com/google/android/updater-script
-          sed -i "s/target_version/$target_version/g" $target_version/META-INF/com/google/android/updater-script
-          if echo $target_device | grep G97[035][FN]; then sed -i '/modem_5g/d' $target_version/META-INF/com/google/android/updater-script;fi
+          cp -r bootloader_modem $target_version
+          cp -r device_tree $target_version
+          sed -i "s/target_device/$target_device/g" $target_version/bootloader_modem/META-INF/com/google/android/updater-script
+          sed -i "s/target_version/$target_version/g" $target_version/bootloader_modem/META-INF/com/google/android/updater-script
+          sed -i "s/target_device/$target_device/g" $target_version/device_tree/META-INF/com/google/android/updater-script
+          sed -i "s/target_version/$target_version/g" $target_version/device_tree/META-INF/com/google/android/updater-script
+          if echo $target_device | grep G97[035][FN]; then sed -i '/modem_5g/d' $target_version/bootloader_modem/META-INF/com/google/android/updater-script;fi
           
       - name: Extract images from AP/BL, dump configs and create zips
         if: steps.check.outputs.need_update == 1
@@ -146,14 +149,24 @@ jobs:
           cd ..
           mv boot.img $target_version-stock_boot.img
           mv recovery.img $target_version-stock_recovery.img
-          for i in ${bls[@]}; do [[ -e $i ]] && mv $i $target_version/$i; done
-          cd $target_version
-          zip -r ../$target_version-twrp_flashable.zip *
+          bls=(cm.bin keystorage.bin modem.bin modem_5g.bin sboot.bin uh.bin up_param.bin)
+          for i in ${bls[@]}; do [[ -e $i ]] && mv $i $target_version/bootloader_modem/$i; done
+          cd $target_version/bootloader_modem
+          zip -r ../../$target_version-bootloader_modem-twrp_flashable.zip *
           rm -rf META-INF
-          tar cvf ../$target_version-odin_flashable.tar *
-          cd ..
-          echo ::set-output name=zip::`find -name $target_version-twrp_flashable.zip`
-          echo ::set-output name=tar::`find -name $target_version-odin_flashable.tar`
+          tar cvf ../../$target_version-bootloader_modem-odin_flashable.tar *
+          cd ../../
+          dts=(dt.img dtbo.img)
+          for i in ${dts[@]}; do [[ -e $i ]] && mv $i $target_version/device_tree/$i; done
+          cd $target_version/device_tree
+          zip -r ../../$target_version-device_tree-twrp_flashable.zip *
+          rm -rf META-INF
+          tar cvf ../../$target_version-device_tree-odin_flashable.tar *
+          cd ../../
+          echo ::set-output name=blzip::`find -name $target_version-bootloader_modem-twrp_flashable.zip`
+          echo ::set-output name=bltar::`find -name $target_version-bootloader_modem-odin_flashable.tar`
+          echo ::set-output name=dtzip::`find -name $target_version-device_tree-twrp_flashable.zip`
+          echo ::set-output name=dttar::`find -name $target_version-device_tree-odin_flashable.tar`
           echo ::set-output name=boot::`find -name $target_version-stock_boot.img`
           echo ::set-output name=recovery::`find -name $target_version-stock_recovery.img`
           echo ::set-output name=configs::`find -name $target_version-configs.zip`
@@ -185,8 +198,10 @@ jobs:
           body_path: versions.txt
           tag_name: ${{ steps.check.outputs.latest_shortversion }}
           files: |
-            ${{ steps.releases.outputs.zip }}
-            ${{ steps.releases.outputs.tar }}
+            ${{ steps.releases.outputs.blzip }}
+            ${{ steps.releases.outputs.bltar }}
+            ${{ steps.releases.outputs.dtzip }}
+            ${{ steps.releases.outputs.dttar }}
             ${{ steps.releases.outputs.boot }}
             ${{ steps.releases.outputs.recovery }}
             ${{ steps.releases.outputs.configs }}
