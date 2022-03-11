@@ -31,11 +31,6 @@ assert(package_extract_file("modem.bin", "/dev/block/platform/13d60000.ufs/by-na
 run_program("/sbin/sleep","1");
 assert(package_extract_file("modem_5g.bin", "/dev/block/platform/13d60000.ufs/by-name/radio2"));
 run_program("/sbin/sleep","1");
-ui_print(" - updating device tree images..");
-package_extract_file("dt.img", "/dev/block/platform/13d60000.ufs/by-name/dtb");
-run_program("/sbin/sleep","1");
-package_extract_file("dtbo.img", "/dev/block/platform/13d60000.ufs/by-name/dtbo");
-run_program("/sbin/sleep","1");
 
 ui_print(" ");
 ui_print(" ");
