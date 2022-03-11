@@ -1,0 +1,18 @@
+unmount("/system_root");
+assert(is_substring("target_device", getprop("ro.boot.bootloader")) || abort("Error: This package is only for target_device device, aborting..."););
+ui_print(" ");
+ui_print(" ");
+ui_print("target_version Device tree flasher");
+ui_print(" by corsicanu@xda-developers.com");
+ui_print(" ");
+ui_print(" - checking device info...");
+run_program("/sbin/sleep","1");
+
+ui_print(" - updating device tree images..");
+package_extract_file("dt.img", "/dev/block/platform/13d60000.ufs/by-name/dtb");
+run_program("/sbin/sleep","1");
+package_extract_file("dtbo.img", "/dev/block/platform/13d60000.ufs/by-name/dtbo");
+run_program("/sbin/sleep","1");
+
+ui_print(" ");
+set_progress(1.000000);
