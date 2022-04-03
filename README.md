@@ -10,7 +10,7 @@ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 ```
 ### Disclaimer
 ```
-I am not responsable for anything you do with your device, don't blame me or anyone else 
+I am not responsible for anything you do with your device, don't blame me or anyone else 
 involved in this for your failures, you are the only one choosing to mess up with your device. 
 All the files here are pulled from official firmwares of the devices mentioned.
 ```
