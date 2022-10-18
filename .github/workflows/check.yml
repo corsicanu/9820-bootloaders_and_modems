@@ -193,7 +193,7 @@ jobs:
 
       - name: Upload release assets
         if: env.need_update == 1
-        uses: softprops/action-gh-release@v1
+        uses: CaptainThrowback/action-gh-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
