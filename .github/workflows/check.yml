@@ -72,7 +72,7 @@ jobs:
           sudo wget -O /usr/bin/splitdt https://corsica.nu/splitdt && sudo chmod +x /usr/bin/splitdt
           sudo wget -O /usr/bin/unpackbootimg https://corsica.nu/unpackbootimg && sudo chmod +x /usr/bin/unpackbootimg
           sudo wget -O /usr/bin/extract-ikconfig https://corsica.nu/extract-ikconfig && sudo chmod +x /usr/bin/extract-ikconfig
-          sudo wget -O /usr/bin/samfirm https://github.com/jesec/SamFirm.NET/releases/latest/download/linux-x64 && sudo chmod +x /usr/bin/samfirm
+          sudo wget -O /usr/bin/samfirm https://github.com/ananjaser1211/SamFirm.NET/releases/latest/download/linux-x64 && sudo chmod +x /usr/bin/samfirm
 
       - name: Fetch firmware
         if: env.need_update == 1
